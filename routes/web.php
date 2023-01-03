@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\QRController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DashboardController::class, 'index']);
+
+Route::get('/login', [AuthController::class, 'index']);
+
+Route::post('/login', [AuthController::class, 'authenticate']);
+
+Route::post('/logout', [AuthController::class, 'logout']);
+
+Route::get('/admin', [DashboardController::class, 'index']);
 
 Route::get('/qrgenerate/{value}', [QRController::class, 'index']);
