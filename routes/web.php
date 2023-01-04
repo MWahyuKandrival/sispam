@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\QRController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index'])->name("home");
 
 Route::get('/login', [AuthController::class, 'index']);
 
@@ -24,6 +25,10 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/admin', [DashboardController::class, 'index']);
+Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth');
+
+Route::resource('/admin/petugas', PetugasController::class)->middleware('auth');
+
+Route::resource('/petugas', PetugasController::class);
 
 Route::get('/qrgenerate/{value}', [QRController::class, 'index']);

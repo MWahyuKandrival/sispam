@@ -15,7 +15,7 @@
             <li><a class="nav-link" href="/admin"><i class="fas fa-clipboard-list"></i> <span>Transaksi</span></a></li>
             
             <li class="menu-header">Data</li>
-            <li><a class="nav-link" href="/admin"><i class="fas fa-address-card"></i> <span>Petugas</span></a></li>
+            <li class="active"><a class="nav-link" href="/admin/petugas"><i class="fas fa-address-card"></i> <span>Petugas</span></a></li>
             <li><a class="nav-link" href="/admin"><i class="fas fa-address-book"></i> <span>Pelanggan</span></a></li>
         </ul>
 
