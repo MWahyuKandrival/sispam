@@ -16,7 +16,7 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'username' => "required",
+            'id' => "required",
             'password' => "required"
         ]);
 
@@ -37,25 +37,25 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function register()
-    {
-        return view('auth.register');
-    }
+    // public function register()
+    // {
+    //     return view('auth.register');
+    // }
 
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required|min:5|max:255',
-            'username' => 'required|min:5|max:255|unique:users',
-            'nip' => 'required|min:5|max:255',
-            'email' => 'required|min:5|max:255|email:dns|unique:users',
-            'password' => 'required|min:5|max:255',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|min:5|max:255',
+    //         'username' => 'required|min:5|max:255|unique:users',
+    //         'nip' => 'required|min:5|max:255',
+    //         'email' => 'required|min:5|max:255|email:dns|unique:users',
+    //         'password' => 'required|min:5|max:255',
+    //     ]);
 
-        $validatedData['password'] = bcrypt($validatedData['password']);
+    //     $validatedData['password'] = bcrypt($validatedData['password']);
 
-        User::create($validatedData);
+    //     User::create($validatedData);
 
-        return redirect('/login')->with('success', 'Pendaftaran Akun berhasil');
-    }
+    //     return redirect('/login')->with('success', 'Pendaftaran Akun berhasil');
+    // }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Petugas;
+use App\Models\Harga;
 use Illuminate\Http\Request;
 
-class PetugasController extends Controller
+class AdminDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        return view('petugas.index');
+        return view('dashboard.index');
     }
 
     /**
@@ -41,10 +41,10 @@ class PetugasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Petugas  $petugas
+     * @param  \App\Models\Harga  $harga
      * @return \Illuminate\Http\Response
      */
-    public function show(Petugas $petugas)
+    public function show(Harga $harga)
     {
         //
     }
@@ -52,10 +52,10 @@ class PetugasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Petugas  $petugas
+     * @param  \App\Models\Harga  $harga
      * @return \Illuminate\Http\Response
      */
-    public function edit(Petugas $petugas)
+    public function edit(Harga $harga)
     {
         //
     }
@@ -64,10 +64,10 @@ class PetugasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Petugas  $petugas
+     * @param  \App\Models\Harga  $harga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Petugas $petugas)
+    public function update(Request $request, Harga $harga)
     {
         //
     }
@@ -75,10 +75,10 @@ class PetugasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Petugas  $petugas
+     * @param  \App\Models\Harga  $harga
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Petugas $petugas)
+    public function destroy(Harga $harga)
     {
         //
     }

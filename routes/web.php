@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminPetugasController;
+use App\Http\Controllers\AdminPelangganController;
 use App\Http\Controllers\QRController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index'])->name("home");
+Route::get('/', [AdminDashboardController::class, 'index'])->name("home");
 
 Route::get('/login', [AuthController::class, 'index']);
 
@@ -25,10 +26,31 @@ Route::post('/login', [AuthController::class, 'authenticate']);
 
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminDashboardController::class, 'index']);
 
-Route::resource('/admin/petugas', PetugasController::class)->middleware('auth');
+    //CRUD Petugas
+    Route::get('/admin/petugas', [AdminPetugasController::class, 'index']); //Index
+    Route::get('/admin/petugas/create', [AdminPetugasController::class, 'create']); //Create
+    Route::post('/admin/petugas', [AdminPetugasController::class, 'store']); //Store
+    Route::get('/admin/petugas/{user:id}/edit', [AdminPetugasController::class, 'edit']); //Edit
+    Route::get('/admin/petugas/{user:id}', [AdminPetugasController::class, 'show']); //Show
+    Route::post('/admin/petugas/{user:id}', [AdminPetugasController::class, 'delete']); //Post
+    Route::put('/admin/petugas/{user:id}', [AdminPetugasController::class, 'update']); //Update
+    Route::delete('/admin/petugas/{user:id}', [AdminPetugasController::class, 'destroy']); //Delete
+    Route::get('/admin/petugas/atur-pelanggan/{user:id}', [AdminPetugasController::class, 'assign']); //Show List Pelanggan
 
-Route::resource('/petugas', PetugasController::class);
+    //CRUD Pelanggan
+    Route::get('/admin/pelanggan', [AdminPelangganController::class, 'index']); //Index
+    Route::get('/admin/pelanggan/create', [AdminPelangganController::class, 'create']); //Create
+    Route::post('/admin/pelanggan', [AdminPelangganController::class, 'store']); //Store
+    Route::get('/admin/pelanggan/{pelanggan:id}/edit', [AdminPelangganController::class, 'edit']); //Edit
+    Route::get('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'show']); //Show
+    Route::post('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'delete']); //Post
+    Route::put('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'update']); //Update
+    Route::delete('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'destroy']); //Delete
+});
+
+Route::resource('/petugas', AdminPetugasController::class);
 
 Route::get('/qrgenerate/{value}', [QRController::class, 'index']);

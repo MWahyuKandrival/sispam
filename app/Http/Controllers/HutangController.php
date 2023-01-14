@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Harga;
+use App\Models\Hutang;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class HutangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Harga  $harga
+     * @param  \App\Models\Hutang  $hutang
      * @return \Illuminate\Http\Response
      */
-    public function show(Harga $harga)
+    public function show(Hutang $hutang)
     {
         //
     }
@@ -52,10 +52,10 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Harga  $harga
+     * @param  \App\Models\Hutang  $hutang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Harga $harga)
+    public function edit(Hutang $hutang)
     {
         //
     }
@@ -64,10 +64,10 @@ class DashboardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Harga  $harga
+     * @param  \App\Models\Hutang  $hutang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Harga $harga)
+    public function update(Request $request, Hutang $hutang)
     {
         //
     }
@@ -75,10 +75,10 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Harga  $harga
+     * @param  \App\Models\Hutang  $hutang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Harga $harga)
+    public function destroy(Hutang $hutang)
     {
         //
     }

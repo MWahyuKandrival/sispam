@@ -6,7 +6,6 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h4>Login</h4>
@@ -25,11 +24,11 @@
                                 <form method="POST" action="/login" class="needs-validation" novalidate="">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input id="username" type="text" class="form-control" name="username"
+                                        <label for="id">ID User</label>
+                                        <input id="id" type="text" class="form-control" name="id"
                                             tabindex="1" required autofocus>
                                         <div class="invalid-feedback">
-                                            Please fill in your Username
+                                            Please fill in your ID User
                                         </div>
                                     </div>
 

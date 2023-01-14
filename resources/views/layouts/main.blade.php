@@ -22,19 +22,7 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assetsS/css/style.css">
     <link rel="stylesheet" href="/assetsS/css/components.css">
-    <!-- Start GA -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-94034622-3');
-    </script>
-    <!-- /END GA -->
 </head>
 
 <body>
@@ -80,6 +68,7 @@
     <script src="/assetsS/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
     <script src="/assetsS/modules/jquery.sparkline.min.js"></script>
     <script src="/assetsS/modules/chart.min.js"></script>
+    <script src="/assetsS/modules/sweetalert/sweetalert.min.js"></script>
     <script src="/assetsS/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
     <script src="/assetsS/modules/summernote/summernote-bs4.js"></script>
     <script src="/assetsS/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
@@ -87,10 +76,41 @@
     <!-- Page Specific JS File -->
     {{-- <script src="/assetsS/js/page/index.js"></script> --}}
     <script src="/assetsS/js/page/modules-datatables.js"></script>
+    <script src="/assetsS/js/page/modules-sweetalert.js"></script>
 
     <!-- Template JS File -->
     <script src="/assetsS/js/scripts.js"></script>
     <script src="/assetsS/js/custom.js"></script>
+
+
 </body>
+
+<script>
+    //Delete button 
+    $(document).on('click', '.btn-delete', function(e) {
+        e.preventDefault();
+        let loop = $(this).data('loop');
+        let name = $(this).data('name');
+        // alert(name);
+        swal({
+                title: 'Hapus ' + name + '?',
+                text: 'Sekali dihapus, kamu tidak akan bisa mengembalikan data ini kembali!',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal('Berhasil menghapus Data', {
+                        icon: 'success',
+                    }).then((showNotif) => {
+                        $(`#deleteForm_${loop}`).submit();
+                    });
+                } else {
+                    swal('Data tidak jadi dihapus!');
+                }
+            });
+    });
+</script>
 
 </html>

@@ -14,7 +14,10 @@ class CreateHargasTable extends Migration
     public function up()
     {
         Schema::create('hargas', function (Blueprint $table) {
-            $table->id();
+            $table->string("id_harga", 20)->primary();
+            $table->string("nama_harga");
+            $table->integer("harga");
+            $table->string("keterangan");
             $table->timestamps();
         });
     }
@@ -27,5 +30,6 @@ class CreateHargasTable extends Migration
     public function down()
     {
         Schema::dropIfExists('hargas');
+        
     }
 }

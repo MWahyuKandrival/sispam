@@ -14,7 +14,21 @@ class CreateTransaksisTable extends Migration
     public function up()
     {
         Schema::create('transaksis', function (Blueprint $table) {
-            $table->id();
+            $table->string("id_transaksi", 20)->primary();
+            $table->string("id_user", 20)->references('id')->on('users');
+            // $table->foreign("id_user")->references("id_user")->on("users");
+            $table->string("id_pelanggan", 20)->references('id')->on('pelanggans');
+            // $table->foreign("id_pelanggan")->references("id_pelanggan")->on("pelanggan");
+            $table->string("kode_mesin", 20)->references('kode_mesin')->on('mesins');
+            // $table->foreign("kode_mesin")->references("kode_mesin")->on("mesins");
+            $table->bigInteger("biaya_perkubik");
+            // $table->foreign("biaya_perkubik")->references("biaya_perkubik")->on("hargas");
+            $table->bigInteger("biaya_admin");
+            // $table->foreign("biaya_admin")->references("biaya_admin")->on("biaya");
+            $table->bigInteger("pemakaian");
+            $table->bigInteger("total_tagihan");
+            $table->bigInteger("total_pembayaran");
+            $table->string("status");
             $table->timestamps();
         });
     }
