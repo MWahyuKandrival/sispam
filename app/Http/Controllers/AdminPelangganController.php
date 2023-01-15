@@ -50,7 +50,7 @@ class AdminPelangganController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id_pelanggan' => 'required|max:20|unique:pelanggans',
+            'id' => 'required|max:20|unique:pelanggans',
             'name' => 'required|max:255',
             'alamat' => 'required|max:255',
             'no_telp' => 'required|max:255',

@@ -61,12 +61,12 @@
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $ptg->name }}</td>
                                                 <td>{{ !empty($ptg->petugas) ? $ptg->petugas->name : '-' }}</td>
-                                                <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_penagihan')) }}
+                                                <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_tagihan')) }}
                                                 </td>
                                                 <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_pembayaran')) }}
                                                 </td>
                                                 <td>Rp.
-                                                    {{ number_format($ptg->currentTransaksi->sum('total_penagihan') - $ptg->currentTransaksi->sum('total_pembayaran')) }}
+                                                    {{ number_format($ptg->currentTransaksi->sum('total_pembayaran') - $ptg->currentTransaksi->sum('total_tagihan')) }}
                                                 </td>
                                                 <td>{{ $ptg->status }}</td>
                                                 <td>
