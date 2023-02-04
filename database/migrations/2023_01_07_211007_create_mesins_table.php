@@ -14,7 +14,7 @@ class CreateMesinsTable extends Migration
     public function up()
     {
         Schema::create('mesins', function (Blueprint $table) {
-            $table->string("kode_mesin", 20)->primary();
+            $table->string("id", 20)->primary();
             $table->string("name");
             $table->string("status");
             $table->string("keterangan");

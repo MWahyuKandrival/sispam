@@ -71,7 +71,11 @@ class AdminPelangganController extends Controller
      */
     public function show(Pelanggan $pelanggan)
     {
-        dd($pelanggan);
+        return view('pelanggan.detail', [
+            'title' => "Detail pelanggan - SISPAM",
+            'nav_title' => 'pelanggan',
+            'pelanggan' => $pelanggan,
+        ]);
     }
 
     /**

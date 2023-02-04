@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminHargaController;
 use App\Http\Controllers\AdminPetugasController;
 use App\Http\Controllers\AdminPelangganController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\QRController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +21,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [AdminDashboardController::class, 'index'])->name("home");
+Route::get('/', [PelangganController::class, 'index'])->name("home");
+
+Route::get('/tagihan', [PelangganController::class, 'tagihan']);
+
+Route::get('/pengaduan', [PelangganController::class, 'pengaduan']);
 
 Route::get('/login', [AuthController::class, 'index']);
 
@@ -45,12 +52,35 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/pelanggan/create', [AdminPelangganController::class, 'create']); //Create
     Route::post('/admin/pelanggan', [AdminPelangganController::class, 'store']); //Store
     Route::get('/admin/pelanggan/{pelanggan:id}/edit', [AdminPelangganController::class, 'edit']); //Edit
+    Route::put('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'update']); //Update
     Route::get('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'show']); //Show
     Route::post('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'delete']); //Post
-    Route::put('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'update']); //Update
     Route::delete('/admin/pelanggan/{pelanggan:id}', [AdminPelangganController::class, 'destroy']); //Delete
+
+    //CRUD Harga
+    Route::get('/admin/harga', [AdminHargaController::class, 'index']); //Index
+    Route::get('/admin/harga/{harga:id}/edit', [AdminHargaController::class, 'edit']); //Edit
+    Route::put('/admin/harga/{harga:id}', [AdminHargaController::class, 'update']); //Update
+
+    //CRUD Mesin
+    Route::get('/admin/mesin', [AdminPelangganController::class, 'index']); //Index
+    Route::get('/admin/mesin/create', [AdminPelangganController::class, 'create']); //Create
+    Route::post('/admin/mesin', [AdminPelangganController::class, 'store']); //Store
+    Route::get('/admin/mesin/{pelanggan:id}/edit', [AdminPelangganController::class, 'edit']); //Edit
+    Route::put('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'update']); //Update
+    Route::get('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'show']); //Show
+    Route::post('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'delete']); //Post
+    Route::delete('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'destroy']); //Delete
+    
+    //CRUD Transaksi
+
 });
 
-Route::resource('/petugas', AdminPetugasController::class);
+Route::middleware(['auth', 'petugas'])->group(function () {
+    Route::get('/petugas', [PetugasController::class, 'index']); //Index    
+});
+
 
 Route::get('/qrgenerate/{value}', [QRController::class, 'index']);
+
+Route::get('/test', [QRController::class, 'test']);

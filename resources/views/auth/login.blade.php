@@ -28,7 +28,7 @@
                                         <input id="id" type="text" class="form-control" name="id"
                                             tabindex="1" required autofocus>
                                         <div class="invalid-feedback">
-                                            Please fill in your ID User
+                                            Masukkan ID User
                                         </div>
                                     </div>
 
@@ -39,10 +39,13 @@
                                         <input id="password" type="password" class="form-control" name="password"
                                             tabindex="2" required>
                                         <div class="invalid-feedback">
-                                            please fill in your password
+                                            Masukkan Password
                                         </div>
                                     </div>
-
+                                    <div class="form-group mb-3">
+                                        <input type="checkbox" name="remember">
+                                        <label for="remember">Remember me</label>
+                                  </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="3">
                                             Login

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Mesin;
 use App\Models\Pelanggan;
 use App\Models\User;
+use App\Models\Harga;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,43 +19,26 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         
-        // User::create([
-        //     'id' => "123456789",
-        //     'name' => 'admin',
-        //     // 'username' => 'admin',
-        //     // 'email' => 'admin@gmail.com',
-        //     'password' => bcrypt('testes'),
-        //     'role' => 'Admin',
-        //     'status' => 'Active',
-        // ]);
+        User::create([
+            'id' => "123456789",
+            'name' => 'admin',
+            'password' => bcrypt('testes'),
+            'role' => 'Admin',
+            'status' => 'Active',
+        ]);
 
-        // User::create([
-        //     'id' => "123456",
-        //     'name' => 'Timmy',
-        //     // 'username' => 'admin',
-        //     // 'email' => 'admin@gmail.com',
-        //     'password' => bcrypt('123456'),
-        //     'role' => 'Petugas',
-        //     'status' => 'Active',
-        // ]);
+        Harga::create([
+            'id' => '1', 
+            'nama_harga' => 'Tagihan/kubik',
+            'harga' => '20000',
+            'keterangan' => 'Harga air perkubik',
+        ]);
 
-        // Mesin::create([
-        //     'kode_mesin'=>'1379',
-        //     'name' => "Toshiba 2021",
-        //     'status' => "Active",
-        //     'keterangan' => 'Ada',
-        // ]);
-
-        // Pelanggan::create([
-        //     'id_pelanggan' => "pelanggan_001",
-        //     'name' => "Wahyu",
-        //     'alamat' => "Pekanbaru",
-        //     'no_telp' => "0909090",
-        //     'status' => "Active",
-        //     'kode_mesin' => "1379",
-        //     'id_user' => "123456",
-        // ]);
-        
-        Pelanggan::factory(10)->create();
+        Harga::create([
+            'id' => '2', 
+            'nama_harga' => 'Biaya Admin',
+            'harga' => '5000',
+            'keterangan' => 'Biaya admin pertransaksi',
+        ]);
     }
 }

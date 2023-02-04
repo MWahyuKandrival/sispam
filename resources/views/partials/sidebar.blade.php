@@ -11,8 +11,8 @@
             <li><a class="nav-link" href="/admin"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
             
             <li class="menu-header">Master</li>
-            <li><a class="nav-link" href="/admin"><i class="fas fa-wallet"></i> <span>Harga</span></a></li>
-            <li><a class="nav-link" href="/admin"><i class="fas fa-clipboard-list"></i> <span>Transaksi</span></a></li>
+            <li class="{{ (!empty($nav_title) && $nav_title == "harga") ? 'active' : ''}}"><a class="nav-link" href="/admin/harga"><i class="fas fa-wallet"></i> <span>Harga</span></a></li>
+            <li class="{{ (!empty($nav_title) && $nav_title == "transaksi") ? 'active' : ''}}"><a class="nav-link" href="/admin/transaksi"><i class="fas fa-clipboard-list"></i> <span>Transaksi</span></a></li>
             
             <li class="menu-header">Data</li>
             <li class="{{ (!empty($nav_title) && $nav_title == "petugas") ? 'active' : ''}}"><a class="nav-link" href="/admin/petugas"><i class="fas fa-address-card"></i> <span>Petugas</span></a></li>

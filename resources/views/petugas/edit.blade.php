@@ -70,8 +70,8 @@
                                 <div class="form-group">
                                     <label for="status">Status Petugas</label>
                                     <select name="status" id="status" class="form-control @error('status') is-invalid  @enderror">
-                                        <option value="Active">Active</option>
-                                        <option value="Non-Active">Non-Active</option>
+                                        <option value="Active" {{ $petugas->status == "Active" ? 'selected' : '' }}>Active</option>
+                                        <option value="Non-Active" {{ $petugas->status == "Non-Active" ? 'selected' : '' }}>Non-Active</option>
                                     </select>
                                     @error('status')
                                         <div class="invalid-feedback">

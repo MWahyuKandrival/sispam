@@ -14,28 +14,35 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        @if (session()->has('success'))
-                            <div class="row d-flex justify-content-center">
-                                <div class="alert alert-success col-lg-8" role="alert">
-                                    {{ session('success') }}
-                                </div>
+                        <div class="card-header">
+                            <h4>Form Detail Petugas</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="id">ID Petugas</label>
+                                <input type="text" class="form-control" name="id" id="id"
+                                    value="{{ $petugas->id }}" readonly>
                             </div>
-                        @endif
-
-                        @if (session()->has('error'))
-                            <div class="row d-flex justify-content-center">
-                                <div class="alert alert-danger col-lg-8" role="alert">
-                                    {{ session('error') }}
-                                </div>
+                            <div class="form-group">
+                                <label for="name">Nama Petugas</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                    value="{{ $petugas->name }}" readonly>
                             </div>
-                        @endif
-                        <div class="card-header d-flex">
-                            <div class="dflex-right">
-                                <div class="buttons">
-                                    <a href="/admin/petugas/create" class="btn btn-primary">Tambah Petugas</a>
-                                </div>
+                            <div class="form-group">
+                                <label for="role">Role Petugas</label>
+                                <input type="text" class="form-control" name="role" id="role"
+                                    value="{{ $petugas->role }}" readonly>
                             </div>
-                            {{-- <h4>Basic DataTables</h4> --}}
+                            <div class="form-group">
+                                <label for="status">Status Petugas</label>
+                                <input type="text" class="form-control" name="status" id="status"
+                                    value="{{ $petugas->status }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Form Detail Petugas</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -45,34 +52,36 @@
                                             <th class="text-center">
                                                 No
                                             </th>
-                                            <th>Nama</th>
-                                            <th>Jumlah <br/>Pelanggan</th>
-                                            <th>Tagihan</th>
+                                            <th>Nama Pelanggan</th>
+                                            <th>Nama Petugas</th>
                                             <th>Total Tagihan</th>
-                                            <th>Total Pembayaran</th>
+                                            <th>Bayar Tagihan</th>
+                                            <th>Hutang</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($petugas as $ptg)
+                                        @forelse ($petugas->pelanggan as $ptg)
                                             <tr>
+                                                {{-- {{ dd($ptg->petugas->name) }} --}}
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $ptg->name }}</td>
-                                                <td>{{ $ptg->pelanggan->count() }}</td>
-                                                <td>{{ $ptg->currentTransaksi->count() }} / {{ $ptg->pelanggan->count() }}
-                                                </td>
+                                                <td>{{ !empty($ptg->petugas) ? $ptg->petugas->name : '-' }}</td>
                                                 <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_tagihan')) }}
                                                 </td>
                                                 <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_pembayaran')) }}
                                                 </td>
+                                                <td>Rp.
+                                                    {{ number_format($ptg->currentTransaksi->sum('total_pembayaran') - $ptg->currentTransaksi->sum('total_tagihan')) }}
+                                                </td>
                                                 <td>{{ $ptg->status }}</td>
                                                 <td>
-                                                    <a href="/admin/petugas/{{ $ptg->id }}"><button
+                                                    <a href="/admin/pelanggan/{{ $ptg->id }}"><button
                                                             class="btn btn-primary" style="width: 6em">Detail</button></a>
-                                                    <a href="/admin/petugas/{{ $ptg->id }}/edit"><button
+                                                    <a href="/admin/pelanggan/{{ $ptg->id }}/edit"><button
                                                             class="btn btn-warning" style="width: 6em">Edit</button></a>
-                                                    <form action="/admin/petugas/{{ $ptg->id }}" method="POST"
+                                                    <form action="/admin/pelanggan/{{ $ptg->id }}" method="POST"
                                                         id="deleteForm_{{ $loop->iteration }}" style="display: inline;">
                                                         @method('DELETE')
                                                         @csrf
@@ -81,8 +90,6 @@
                                                             data-name="{{ $ptg->name }}"
                                                             style="width: 6em; display: inline-block;">Delete</button>
                                                     </form>
-                                                    {{-- <a href="/admin/petugas/atur-pelanggan/{{ $ptg->id }}"><button
-                                                        class=" btn btn-success" style="width: 10em">Atur Pelanggan</button></a> --}}
                                                 </td>
                                             </tr>
                                         @empty

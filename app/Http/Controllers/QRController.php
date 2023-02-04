@@ -11,4 +11,9 @@ class QRController extends Controller
             "value" => $value,
         ]);
     }
+
+    function test(){
+        return view("home.index",[
+        ]);
+    }
 }

@@ -14,7 +14,7 @@ class CreateHargasTable extends Migration
     public function up()
     {
         Schema::create('hargas', function (Blueprint $table) {
-            $table->string("id_harga", 20)->primary();
+            $table->string("id", 20)->primary();
             $table->string("nama_harga");
             $table->integer("harga");
             $table->string("keterangan");

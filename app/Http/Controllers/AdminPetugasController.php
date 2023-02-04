@@ -65,7 +65,11 @@ class AdminPetugasController extends Controller
      */
     public function show(User $user)
     {
-        dd($user);
+        return view('petugas.detail', [
+            'title' => "Detail Petugas - SISPAM",
+            'nav_title' => 'petugas',
+            'petugas' => $user,
+        ]);
     }
 
     public function assign(User $user)
