@@ -14,7 +14,9 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        //
+        return view('petugass.index',[
+
+        ]);
     }
 
     /**

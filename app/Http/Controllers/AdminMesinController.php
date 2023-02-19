@@ -28,7 +28,10 @@ class AdminMesinController extends Controller
      */
     public function create()
     {
-        //
+        return view("mesin.create", [
+            'title' => "List Mesin - SISPAM",
+            'nav_title' => 'mesin',
+        ]);
     }
 
     /**
@@ -39,7 +42,15 @@ class AdminMesinController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'required|max:20|unique:mesins',
+            'name' => 'required|max:255',
+            'status' => 'required|max:255',
+            'keterangan' => 'required|max:255',
+        ]);
+
+        Mesin::create($validatedData);
+        return redirect('/admin/mesin')->with('success', 'Mesin Berhasil Ditambahkan!');
     }
 
     /**
@@ -61,7 +72,11 @@ class AdminMesinController extends Controller
      */
     public function edit(Mesin $mesin)
     {
-        //
+        return view("mesin.edit", [
+            'title' => "List Mesin - SISPAM",
+            'nav_title' => 'mesin',
+            'mesin' => $mesin,
+        ]);
     }
 
     /**
@@ -73,7 +88,15 @@ class AdminMesinController extends Controller
      */
     public function update(Request $request, Mesin $mesin)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'required|max:20|unique:mesins,id,'.$mesin->id,
+            'name' => 'required|max:255',
+            'status' => 'required|max:255',
+            'keterangan' => 'required|max:255',
+        ]);
+
+        Mesin::where("id", $mesin->id)->update($validatedData);
+        return redirect('/admin/mesin')->with('success', 'Mesin Berhasil Ditambahkan!');
     }
 
     /**
@@ -84,6 +107,8 @@ class AdminMesinController extends Controller
      */
     public function destroy(Mesin $mesin)
     {
-        //
+        Mesin::destroy($mesin->id);
+
+        return redirect('/admin/mesin')->with('success', 'Mesin berhasil dihapus');
     }
 }

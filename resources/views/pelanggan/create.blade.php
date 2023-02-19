@@ -83,7 +83,7 @@
                                     <select name="kode_mesin" id="kode_mesin"
                                         class="form-control @error('kode_mesin') is-invalid  @enderror">
                                         @forelse ($mesin as $ms)
-                                            <option value="{{ $ms->kode_mesin }}">{{ $ms->name }}</option>
+                                            <option value="{{ $ms->id }}">{{ $ms->name }}</option>
                                         @empty
                                             <option value="">Tidak ada Mesin yang Terdaftar</option>
                                         @endforelse

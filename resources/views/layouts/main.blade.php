@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/assetsS/modules/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="/assetsS/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="/assetsS/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assetsS/modules/select2/dist/css/select2.min.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="/assetsS/css/style.css">
@@ -77,6 +78,7 @@
     {{-- <script src="/assetsS/js/page/index.js"></script> --}}
     <script src="/assetsS/js/page/modules-datatables.js"></script>
     <script src="/assetsS/js/page/modules-sweetalert.js"></script>
+    <script src="/assetsS/modules/select2/dist/js/select2.full.min.js"></script>
 
     <!-- Template JS File -->
     <script src="/assetsS/js/scripts.js"></script>
@@ -110,6 +112,116 @@
                     swal('Data tidak jadi dihapus!');
                 }
             });
+    });
+
+    //Aksi Ketika Penambahan Transaksi pada Admin saat memilih pelanggan
+    $('#select_pelanggan').change(function() {
+        var id = $(this).val();
+
+        let id_petugas = $(this).find(':selected').attr('data-petugas');
+
+        $("#select_petugas").val(`${id_petugas}`).trigger('change');
+
+        //AJAX
+        $.ajax({
+            url: '/get-pemakaian/' + id,
+            type: 'get',
+            dataType: 'json',
+            success: function(response) {
+                if (response['pemakaian'] != null) {
+                    console.log(response['pemakaian']);
+                    $("#pemakaian_sebelum").val(response['pemakaian']);
+                    $("#pemakaian_sekarang").attr({
+                        min: response['pemakaian'],
+                    });
+                } else {
+                    console.log('not found');
+                    $("#pemakaian_sebelum").val(0);
+                    $("#pemakaian_sekarang").attr({
+                        min: 0,
+                    });
+                }
+                $("#pemakaian_sekarang").attr("readonly", false);
+            },
+            error: function(response) {
+                swal({
+                    title: 'Terjadi Kesalahan!',
+                    text: 'Data Transaksi / Data Pelanggan Tidak Ditemukan, Pastikan Nama Pelanggan Benar dan Terdaftar Pada Halaman Pelanggan',
+                    icon: 'error',
+                });
+                $("#pemakaian_sebelum").val("Pilih Pelanggan Terlebih Dahulu");
+                $("#pemakaian_sekarang").val(0);
+                $("#pemakaian_sekarang").attr("readonly", true);
+            },
+        });
+    });
+
+    // $("#pemakaian_sekarang").change(function() {
+    //     let pemakaian = $(this).val() - $("#pemakaian_sebelum").val();
+    //     var total = (parseFloat(pemakaian) * parseFloat($("#biaya_perkubik").val())) + parseFloat($("#biaya_admin").val());
+    //     $("#total_tagihan_readonly").val(total)
+    // });
+</script>
+<script type="text/javascript">
+    
+    var pakai = document.getElementById('pemakaian_sekarang');
+    pakai.addEventListener('keyup', function(e) {
+        if (parseInt($(this).val()) >= parseInt($(this).attr("min"))) {
+            let pemakaian = $(this).val() - $("#pemakaian_sebelum").val();
+            var total = (pemakaian * parseInt($("#biaya_perkubik").val())) + parseInt($(
+                "#biaya_admin").val());
+            $("#total_tagihan_readonly").val(formatRupiah("" + total, 'Rp. '));
+            $("#total_tagihan").val(total);
+            $("#total_pembayaran_readonly").attr("readonly", false);
+        } else {
+            $("#total_tagihan_readonly").val("");
+            $("#total_tagihan").val("");
+            $("#total_pembayaran_readonly").attr("readonly", true);
+            $("#total_pembayaran").val("");
+        }
+    });
+
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+</script>
+
+<script>
+    var pakai_update = document.getElementById('pemakaian');
+    pakai_update.addEventListener('keyup', function(e) {
+        let pemakaian = $(this).val();
+        var total = (parseInt(pemakaian) * parseInt($("#biaya_perkubik").val())) + parseInt($(
+            "#biaya_admin").val());
+        console.log($(this).val());
+        $("#total_tagihan_readonly").val(formatRupiah("" + total, 'Rp. '));
+        $("#total_tagihan").val(total);
+        $("#total_pembayaran_readonly").attr("readonly", false);
+    });
+</script>
+
+<script>
+    var total = document.getElementById('total_pembayaran_readonly');
+    total.addEventListener('change', function(e) {
+        var value = $(this).val();
+        var angka = value.replace("Rp. ", "");
+        var angka = angka.replace(".", "");
+        var angka = angka.replace(",", "");
+        $("#total_pembayaran").val(angka);
+        $("#total_pembayaran_readonly").val(formatRupiah("" + $(this).val(), 'Rp. '));
     });
 </script>
 

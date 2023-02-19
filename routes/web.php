@@ -3,8 +3,10 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminHargaController;
+use App\Http\Controllers\AdminMesinController;
 use App\Http\Controllers\AdminPetugasController;
 use App\Http\Controllers\AdminPelangganController;
+use App\Http\Controllers\AdminTransaksiController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\QRController;
@@ -27,7 +29,7 @@ Route::get('/tagihan', [PelangganController::class, 'tagihan']);
 
 Route::get('/pengaduan', [PelangganController::class, 'pengaduan']);
 
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->middleware('guest');
 
 Route::post('/login', [AuthController::class, 'authenticate']);
 
@@ -63,23 +65,41 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/harga/{harga:id}', [AdminHargaController::class, 'update']); //Update
 
     //CRUD Mesin
-    Route::get('/admin/mesin', [AdminPelangganController::class, 'index']); //Index
-    Route::get('/admin/mesin/create', [AdminPelangganController::class, 'create']); //Create
-    Route::post('/admin/mesin', [AdminPelangganController::class, 'store']); //Store
-    Route::get('/admin/mesin/{pelanggan:id}/edit', [AdminPelangganController::class, 'edit']); //Edit
-    Route::put('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'update']); //Update
-    Route::get('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'show']); //Show
-    Route::post('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'delete']); //Post
-    Route::delete('/admin/mesin/{pelanggan:id}', [AdminPelangganController::class, 'destroy']); //Delete
+    Route::get('/admin/mesin', [AdminMesinController::class, 'index']); //Index
+    Route::get('/admin/mesin/create', [AdminMesinController::class, 'create']); //Create
+    Route::post('/admin/mesin', [AdminMesinController::class, 'store']); //Store
+    Route::get('/admin/mesin/{mesin:id}/edit', [AdminMesinController::class, 'edit']); //Edit
+    Route::put('/admin/mesin/{mesin:id}', [AdminMesinController::class, 'update']); //Update
+    Route::post('/admin/mesin/{mesin:id}', [AdminMesinController::class, 'delete']); //Post
+    Route::delete('/admin/mesin/{mesin:id}', [AdminMesinController::class, 'destroy']); //Delete
     
     //CRUD Transaksi
+    Route::get('/admin/transaksi', [AdminTransaksiController::class, 'index']); //Index
+    Route::get('/admin/transaksi/create', [AdminTransaksiController::class, 'create']); //Create
+    Route::post('/admin/transaksi', [AdminTransaksiController::class, 'store']); //Store
+    Route::get('/admin/transaksi/{transaksi:id_transaksi}/edit', [AdminTransaksiController::class, 'edit']); //Edit
+    Route::put('/admin/transaksi/{transaksi:id_transaksi}', [AdminTransaksiController::class, 'update']); //Update
+    Route::get('/admin/transaksi/{transaksi:id_transaksi}', [AdminTransaksiController::class, 'show']); //Show
+    Route::post('/admin/transaksi/{transaksi:id_transaksi}', [AdminTransaksiController::class, 'delete']); //Post
+    Route::delete('/admin/transaksi/{transaksi:id_transaksi}', [AdminTransaksiController::class, 'destroy']); //Delete
 
+    //Ajax
+    Route::get('/admin/get-petugas/{user:id}', [AdminPetugasController::class, 'getPetugas']); //Get Ajax Petugas
 });
 
 Route::middleware(['auth', 'petugas'])->group(function () {
-    Route::get('/petugas', [PetugasController::class, 'index']); //Index    
+    Route::get('/petugas', [PetugasController::class, 'index']); //Index
+    
+    //Pelanggan
+    Route::get('/petugas/pelanggan', [PetugasController::class, 'pelanggan']);
+    
+    //Transaksi
+    Route::get('/petugas/transaksi', [PetugasController::class, 'transaksi']);
 });
 
+//Ajax
+Route::get('/get-pemakaian/{pelanggan:id}', [AdminPelangganController::class, 'getPemakaian']);
+Route::get('/get-pemakaian-update/{transaksi:id_transaksi}', [AdminTransaksiController::class, 'getPemakaianUpdate']);
 
 Route::get('/qrgenerate/{value}', [QRController::class, 'index']);
 

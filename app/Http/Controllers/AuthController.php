@@ -22,7 +22,12 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            if (\Auth::user() && \Auth::user()->role == "Admin") {
+                return redirect()->intended('/admin');
+            }else{
+                return redirect()->intended('/petugas');
+            }
+            
         }
         return back()->with('loginError', 'Login Failed');
     }

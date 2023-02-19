@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mesin;
 use App\Models\Pelanggan;
+use App\Models\Transaksi;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,7 @@ class AdminPelangganController extends Controller
             'alamat' => 'required|max:255',
             'no_telp' => 'required|max:255',
             'status' => 'required|max:255',
-            'kode_mesin' => 'required|max:20|exists:mesins,kode_mesin',
+            'kode_mesin' => 'required|max:20|exists:mesins,id',
             'id_user' => 'required|max:20|exists:users,id',
         ]);
 
@@ -111,7 +112,7 @@ class AdminPelangganController extends Controller
             'alamat' => 'required|max:255',
             'no_telp' => 'required|max:255',
             'status' => 'required|max:255',
-            'kode_mesin' => 'required|max:20|exists:mesins,kode_mesin',
+            'kode_mesin' => 'required|max:20|exists:mesins,id',
             'id_user' => 'required|max:20|exists:users,id',
         ]);
 
@@ -131,4 +132,14 @@ class AdminPelangganController extends Controller
 
         return redirect('/admin/pelanggan')->with('success', 'Pelanggan berhasil dihapus');
     }
+
+    public function getPemakaian(Pelanggan $pelanggan)
+    {
+        // dd($pelanggan);
+        $data = Transaksi::select("pemakaian")->where("id_pelanggan", $pelanggan->id)->latest()->first();
+        
+        return response()->json($data);
+    }
+
+    
 }
