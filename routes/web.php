@@ -92,9 +92,11 @@ Route::middleware(['auth', 'petugas'])->group(function () {
     
     //Pelanggan
     Route::get('/petugas/pelanggan', [PetugasController::class, 'pelanggan']);
+    Route::get('/petugas/pelanggan/{pelanggan:id}', [PetugasController::class, 'show_pelanggan']);
     
     //Transaksi
     Route::get('/petugas/transaksi', [PetugasController::class, 'transaksi']);
+    Route::get('/petugas/transaksi/create', [PetugasController::class, 'create_transaksi']);
 });
 
 //Ajax

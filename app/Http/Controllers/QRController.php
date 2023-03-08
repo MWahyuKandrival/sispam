@@ -14,6 +14,7 @@ class QRController extends Controller
 
     function test(){
         return view("home.index",[
+            'title' => "ada",
         ]);
     }
 }

@@ -14,7 +14,10 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        return view('dashboard.index', [
+            'title' => "List Petugas - SISPAM",
+            'nav_title' => 'dashboard',
+        ]);
     }
 
     /**
@@ -22,6 +25,7 @@ class AdminDashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
         //

@@ -30,11 +30,14 @@
                             </div>
                         @endif
                         <div class="card-header d-flex">
-                            <div class="dflex-right">
-                                <div class="buttons">
-                                    <a href="/admin/pelanggan/create" class="btn btn-primary">Tambah Pelanggan</a>
+                            @if (auth()->user()->role === 'Admin')
+                                <div class="dflex-right">
+                                    <div class="buttons">
+                                        <a href="/admin/pelanggan/create" class="btn btn-primary">Tambah Pelanggan</a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
                             {{-- <h4>Basic DataTables</h4> --}}
                         </div>
                         <div class="card-body">
@@ -70,24 +73,32 @@
                                                 </td>
                                                 <td>{{ $ptg->status }}</td>
                                                 <td>
-                                                    <a href="/admin/pelanggan/{{ $ptg->id }}"><button
-                                                            class="btn btn-primary" style="width: 6em">Detail</button></a>
-                                                    <a href="/admin/pelanggan/{{ $ptg->id }}/edit"><button
-                                                            class="btn btn-warning" style="width: 6em">Edit</button></a>
-                                                    <form action="/admin/pelanggan/{{ $ptg->id }}" method="POST"
-                                                        id="deleteForm_{{ $loop->iteration }}" style="display: inline;">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger btn-delete"
-                                                            data-loop="{{ $loop->iteration }}"
-                                                            data-name="{{ $ptg->name }}"
-                                                            style="width: 6em; display: inline-block;">Delete</button>
-                                                    </form>
+                                                    @if (auth()->user()->role === 'Admin')
+                                                        <a href="/admin/pelanggan/{{ $ptg->id }}"><button
+                                                                class="btn btn-primary"
+                                                                style="width: 6em">Detail</button></a>
+                                                        <a href="/admin/pelanggan/{{ $ptg->id }}/edit"><button
+                                                                class="btn btn-warning" style="width: 6em">Edit</button></a>
+                                                        <form action="/admin/pelanggan/{{ $ptg->id }}" method="POST"
+                                                            id="deleteForm_{{ $loop->iteration }}"
+                                                            style="display: inline;">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger btn-delete"
+                                                                data-loop="{{ $loop->iteration }}"
+                                                                data-name="{{ $ptg->name }}"
+                                                                style="width: 6em; display: inline-block;">Delete</button>
+                                                        </form>
+                                                    @else
+                                                        <a href="/petugas/pelanggan/{{ $ptg->id }}"><button
+                                                                class="btn btn-primary"
+                                                                style="width: 6em">Detail</button></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">Tidak ada data Petugas</td>
+                                                <td colspan="6" class="text-center">Tidak ada data Pelanggan</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

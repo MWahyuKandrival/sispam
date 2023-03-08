@@ -47,7 +47,7 @@ class Pelanggan extends Model
 
     public function currentTransaksi()
     {
-        return $this->hasMany(Transaksi::class, "id_pelanggan")->whereMonth("created_at", now()->month)->whereYear("created_at", now()->year);
+        return $this->hasMany(Transaksi::class, "id_pelanggan")->whereMonth("created_at", now()->month)->orWhere("status", "Hutang")->whereYear("created_at", now()->year);
     }
 
     public function whereTransaksi($data)

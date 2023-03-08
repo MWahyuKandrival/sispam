@@ -53,6 +53,11 @@
                                 <input type="text" class="form-control" name="id_user" id="id_user"
                                     value="{{ $pelanggan->petugas->name }}" readonly>
                             </div>
+                            @if (auth()->user()->role === 'Admin')
+                                <a href="/admin/pelanggan" class="btn btn-warning">Back</a>
+                            @else
+                                <a href="/petugas/pelanggan" class="btn btn-warning">Back</a>
+                            @endif
                         </div>
                     </div>
 
@@ -61,7 +66,7 @@
                             <h4>Detail Transaksi Pelanggan</h4>
                         </div>
                         <div class="card-body">
-                            
+
                         </div>
                     </div>
                 </div>

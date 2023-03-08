@@ -32,10 +32,15 @@
                         <div class="card-header d-flex">
                             <div class="dflex-right">
                                 <div class="buttons">
-                                    <a href="/admin/transaksi/create" class="btn btn-primary">Tambah Transaksi</a>
+                                    @if (auth()->user()->role === 'Admin')
+                                        <a href="/admin/transaksi/create" class="btn btn-primary">Tambah Transaksi</a>
+                                    @else
+                                        <a href="/petugas/transaksi/create" class="btn btn-primary">Tambah Transaksi</a>
+                                    @endif
                                 </div>
                             </div>
                             {{-- <h4>Basic DataTables</h4> --}}
+
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -87,7 +92,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">Tidak ada data Petugas</td>
+                                                <td colspan="6" class="text-center">Tidak ada data Transaksi</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

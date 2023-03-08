@@ -28,7 +28,7 @@
         @else
             <ul class="sidebar-menu">
                 <li class="menu-header">Dashboard</li>
-                <li><a class="nav-link" href="/petugas"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+                <li  class="{{ !empty($nav_title) && $nav_title == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="/petugas"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
                 <li class="menu-header">Master</li>
                 <li class="{{ !empty($nav_title) && $nav_title == 'transaksi' ? 'active' : '' }}"><a class="nav-link"
