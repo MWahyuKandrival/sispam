@@ -25,10 +25,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PelangganController::class, 'index'])->name("home");
 
-Route::get('/tagihan', [PelangganController::class, 'tagihan']);
-
-Route::get('/pengaduan', [PelangganController::class, 'pengaduan']);
-
 Route::get('/login', [AuthController::class, 'index'])->middleware('guest');
 
 Route::post('/login', [AuthController::class, 'authenticate']);
@@ -63,15 +59,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/harga', [AdminHargaController::class, 'index']); //Index
     Route::get('/admin/harga/{harga:id}/edit', [AdminHargaController::class, 'edit']); //Edit
     Route::put('/admin/harga/{harga:id}', [AdminHargaController::class, 'update']); //Update
-
-    //CRUD Mesin
-    Route::get('/admin/mesin', [AdminMesinController::class, 'index']); //Index
-    Route::get('/admin/mesin/create', [AdminMesinController::class, 'create']); //Create
-    Route::post('/admin/mesin', [AdminMesinController::class, 'store']); //Store
-    Route::get('/admin/mesin/{mesin:id}/edit', [AdminMesinController::class, 'edit']); //Edit
-    Route::put('/admin/mesin/{mesin:id}', [AdminMesinController::class, 'update']); //Update
-    Route::post('/admin/mesin/{mesin:id}', [AdminMesinController::class, 'delete']); //Post
-    Route::delete('/admin/mesin/{mesin:id}', [AdminMesinController::class, 'destroy']); //Delete
     
     //CRUD Transaksi
     Route::get('/admin/transaksi', [AdminTransaksiController::class, 'index']); //Index
@@ -98,6 +85,12 @@ Route::middleware(['auth', 'petugas'])->group(function () {
     Route::get('/petugas/transaksi', [PetugasController::class, 'transaksi']);
     Route::get('/petugas/transaksi/create', [PetugasController::class, 'create_transaksi']);
 });
+
+// Pelanggan
+
+Route::get('/tagihan', [PelangganController::class, 'tagihan']);
+
+Route::get('/pengaduan', [PelangganController::class, 'pengaduan']);
 
 //Ajax
 Route::get('/get-pemakaian/{pelanggan:id}', [AdminPelangganController::class, 'getPemakaian']);

@@ -20,14 +20,6 @@ class CreateHutangsTable extends Migration
             $table->string("status");
             $table->timestamps();
         });
-
-        // Schema::table('hutangs', function (Blueprint $table) {
-        //     $table->foreign("id_transaksi")->references("id_transaksi")->on("transaksis");
-        // });
-
-        // Schema::table('pelanggans', function (Blueprint $table) {
-        //     $table->foreign('kode_mesin')->references('kode_mesin')->on('mesins');
-        // });
     }
 
     /**

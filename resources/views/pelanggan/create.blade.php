@@ -79,26 +79,10 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="kode_mesin">Kode Mesin</label>
-                                    <select name="kode_mesin" id="kode_mesin"
-                                        class="form-control @error('kode_mesin') is-invalid  @enderror">
-                                        @forelse ($mesin as $ms)
-                                            <option value="{{ $ms->id }}">{{ $ms->name }}</option>
-                                        @empty
-                                            <option value="">Tidak ada Mesin yang Terdaftar</option>
-                                        @endforelse
-                                    </select>
-                                    @error('kode_mesin')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
                                     <label for="id_user">Petugas</label>
                                     <select name="id_user" id="id_user"
-                                        class="form-control @error('id_user') is-invalid  @enderror">
+                                        class="form-control @error('id_user') is-invalid  @enderror select2">
+                                        <option value="">Tidak ada</option>
                                         @forelse ($petugas as $ms)
                                             <option value="{{ $ms->id }}">{{ $ms->name }}</option>
                                         @empty

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mesin;
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
 use App\Models\User;
@@ -36,7 +35,6 @@ class AdminPelangganController extends Controller
         // dd(User::where('role', '!=', 'Admin')->get());
         return view('pelanggan.create', [
             'title' => "Tambah Pelanggan - SISPAM",
-            'mesin' => Mesin::all(),
             'petugas' => User::where('role', '!=', 'Admin')->get(),
             'nav_title' => 'pelanggan',
         ]);
@@ -56,8 +54,7 @@ class AdminPelangganController extends Controller
             'alamat' => 'required|max:255',
             'no_telp' => 'required|max:255',
             'status' => 'required|max:255',
-            'kode_mesin' => 'required|max:20|exists:mesins,id',
-            'id_user' => 'required|max:20|exists:users,id',
+            'id_user' => 'max:20',
         ]);
 
         Pelanggan::create($validatedData);
@@ -91,7 +88,6 @@ class AdminPelangganController extends Controller
         return view('pelanggan.edit', [
             'pelanggan' => $pelanggan,
             'title' => "Edit Pelanggan - SISPAM",
-            'mesin' => Mesin::all(),
             'petugas' => User::where('role', '!=', 'Admin')->get(),
             'nav_title' => 'pelanggan',
         ]);
@@ -112,8 +108,7 @@ class AdminPelangganController extends Controller
             'alamat' => 'required|max:255',
             'no_telp' => 'required|max:255',
             'status' => 'required|max:255',
-            'kode_mesin' => 'required|max:20|exists:mesins,id',
-            'id_user' => 'required|max:20|exists:users,id',
+            'id_user' => 'max:20',
         ]);
 
         Pelanggan::where("id", $pelanggan->id)->update($validatedData);

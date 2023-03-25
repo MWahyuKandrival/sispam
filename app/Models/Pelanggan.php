@@ -26,7 +26,6 @@ class Pelanggan extends Model
         'alamat',
         'no_telp',
         'status',
-        'kode_mesin',
         'id_user',
     ];
 

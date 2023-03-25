@@ -69,8 +69,10 @@
                                     <label for="status">Status Petugas</label>
                                     <select name="status" id="status"
                                         class="form-control @error('status') is-invalid  @enderror">
-                                        <option value="Active" {{ $pelanggan->status == "Active" ? 'selected' : '' }}>Active</option>
-                                        <option value="Non-Active" {{ $pelanggan->status == "Non-Active" ? 'selected' : '' }}>Non-Active</option>
+                                        <option value="Active" {{ $pelanggan->status == 'Active' ? 'selected' : '' }}>Active
+                                        </option>
+                                        <option value="Non-Active"
+                                            {{ $pelanggan->status == 'Non-Active' ? 'selected' : '' }}>Non-Active</option>
                                     </select>
                                     @error('status')
                                         <div class="invalid-feedback">
@@ -79,7 +81,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="kode_mesin">Kode Mesin</label>
                                     <select name="kode_mesin" id="kode_mesin"
                                         class="form-control @error('kode_mesin') is-invalid  @enderror">
@@ -94,14 +96,17 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="id_user">Petugas</label>
                                     <select name="id_user" id="id_user"
-                                        class="form-control @error('id_user') is-invalid  @enderror">
+                                        class="form-control @error('id_user') is-invalid  @enderror select2">
+                                        <option value="">Tidak ada</option>
                                         @forelse ($petugas as $ms)
-                                            <option value="{{ $ms->id }}" {{ $pelanggan->id_user == $ms->id_user ? 'selected' : '' }}>{{ $ms->name }}</option>
+                                            <option value="{{ $ms->id }}"
+                                                @if ($pelanggan->id_user == $ms->id) selected="selected" @endif>
+                                                {{ $ms->name }}</option>
                                         @empty
                                             <option value="">Tidak ada Petugas yang Terdaftar</option>
                                         @endforelse

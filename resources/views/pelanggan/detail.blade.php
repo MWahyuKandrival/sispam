@@ -51,7 +51,15 @@
                             <div class="form-group">
                                 <label for="id_user">Petugas</label>
                                 <input type="text" class="form-control" name="id_user" id="id_user"
-                                    value="{{ $pelanggan->petugas->name }}" readonly>
+                                    value="{{ !empty($pelanggan->petugas->name) ? $pelanggan->petugas->name : '-' }}"
+                                    readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="id_user">QR-Code</label>
+                                <div class="">
+                                    {{ url("/tagihan/".$pelanggan->id) }}
+                                    {!! QrCode::size(300)->generate(url("/tagihan/".$pelanggan->id)) !!}
+                                </div>  
                             </div>
                             @if (auth()->user()->role === 'Admin')
                                 <a href="/admin/pelanggan" class="btn btn-warning">Back</a>

@@ -24,7 +24,6 @@ class Transaksi extends Model
         'id_transaksi',
         'id_user',
         'id_pelanggan',
-        'kode_mesin',
         'biaya_perkubik',
         'biaya_admin',
         'pemakaian',

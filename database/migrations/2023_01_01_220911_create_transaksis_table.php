@@ -19,8 +19,6 @@ class CreateTransaksisTable extends Migration
             // $table->foreign("id_user")->references("id_user")->on("users");
             $table->string("id_pelanggan", 20)->references('id')->on('pelanggans');
             // $table->foreign("id_pelanggan")->references("id_pelanggan")->on("pelanggan");
-            $table->string("kode_mesin", 20)->nullable()->references('kode_mesin')->on('mesins');
-            // $table->foreign("kode_mesin")->references("kode_mesin")->on("mesins");
             $table->bigInteger("biaya_perkubik");
             // $table->foreign("biaya_perkubik")->references("biaya_perkubik")->on("hargas");
             $table->bigInteger("biaya_admin");

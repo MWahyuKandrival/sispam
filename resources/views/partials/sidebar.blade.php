@@ -18,8 +18,8 @@
                         href="/admin/transaksi"><i class="fas fa-clipboard-list"></i> <span>Transaksi</span></a></li>
 
                 <li class="menu-header">Data</li>
-                <li class="{{ !empty($nav_title) && $nav_title == 'mesin' ? 'active' : '' }}"><a class="nav-link"
-                        href="/admin/mesin"><i class="fas fa-address-card"></i> <span>Mesin</span></a></li>
+                {{-- <li class="{{ !empty($nav_title) && $nav_title == 'mesin' ? 'active' : '' }}"><a class="nav-link"
+                        href="/admin/mesin"><i class="fas fa-address-card"></i> <span>Mesin</span></a></li> --}}
                 <li class="{{ !empty($nav_title) && $nav_title == 'petugas' ? 'active' : '' }}"><a class="nav-link"
                         href="/admin/petugas"><i class="fas fa-address-card"></i> <span>Petugas</span></a></li>
                 <li class="{{ !empty($nav_title) && $nav_title == 'pelanggan' ? 'active' : '' }}"><a class="nav-link"

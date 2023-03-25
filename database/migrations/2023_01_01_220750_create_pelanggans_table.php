@@ -19,7 +19,6 @@ class CreatePelanggansTable extends Migration
             $table->text("alamat");
             $table->string("no_telp",20);
             $table->string("status");
-            $table->string("kode_mesin", 20)->nullable()->references('kode_mesin')->on('mesins');
             $table->string("id_user", 20)->nullable()->references('id')->on('users');
             $table->timestamps();
         });
