@@ -16,7 +16,7 @@ class AdminPetugasController extends Controller
     public function index()
     {
         return view('petugas.index', [
-            'petugas' => User::where("role", "!=", "Admin")->with(['pelanggan', 'currentTransaksi'])->latest()->get(),
+            'petugas' => User::with(['pelanggan', 'currentPemakaian'])->latest()->get(),
             'title' => "List Petugas - SISPAM",
             'nav_title' => 'petugas',
         ]);

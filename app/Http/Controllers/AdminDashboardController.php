@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Harga;
+use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
@@ -14,9 +15,11 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
+        // dd(Pelanggan::latest()->get());
         return view('dashboard.index', [
             'title' => "List Petugas - SISPAM",
             'nav_title' => 'dashboard',
+            'pelanggan' => Pelanggan::get(),
         ]);
     }
 

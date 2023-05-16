@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelanggan;
 use App\Models\Transaksi;
+use App\Models\Pemakaian;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,9 @@ class AdminPelangganController extends Controller
      */
     public function index()
     {
-        $pelanggan = Pelanggan::with(['petugas', 'currentTransaksi'])->latest()->get();
-        // dd($pelanggan[1]->petugas->name);
+        // $pelanggan = Pelanggan::with(['petugas', 'currentPemakaian'])->latest()->get();
+        $pelanggan = Pelanggan::latest()->get();
+        // dd($pelanggan);
         return view('pelanggan.index', [
             'pelanggan' => $pelanggan,
             'title' => "List Pelanggan - SISPAM",
@@ -69,10 +71,12 @@ class AdminPelangganController extends Controller
      */
     public function show(Pelanggan $pelanggan)
     {
+        
         return view('pelanggan.detail', [
             'title' => "Detail pelanggan - SISPAM",
             'nav_title' => 'pelanggan',
             'pelanggan' => $pelanggan,
+            'pemakaian' => Pemakaian::where('id_pelanggan', $pelanggan->id)->latest()->get(),
         ]);
     }
 
@@ -128,13 +132,4 @@ class AdminPelangganController extends Controller
         return redirect('/admin/pelanggan')->with('success', 'Pelanggan berhasil dihapus');
     }
 
-    public function getPemakaian(Pelanggan $pelanggan)
-    {
-        // dd($pelanggan);
-        $data = Transaksi::select("pemakaian")->where("id_pelanggan", $pelanggan->id)->latest()->first();
-        
-        return response()->json($data);
-    }
-
-    
 }

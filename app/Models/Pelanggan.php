@@ -29,28 +29,23 @@ class Pelanggan extends Model
         'id_user',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'id_pelanggan';
-    }
-
     public function petugas()
     {
         return $this->belongsTo(User::class, "id_user", "id");
     }
 
-    public function transaksi()
+    public function pemakaian()
     {
-        return $this->hasMany(Transaksi::class, "id_pelanggan");
+        return $this->hasMany(Pemakaian::class, "id_pelanggan");
     }
 
-    public function currentTransaksi()
+    public function currentPemakaian()
     {
-        return $this->hasMany(Transaksi::class, "id_pelanggan")->whereMonth("created_at", now()->month)->orWhere("status", "Hutang")->whereYear("created_at", now()->year);
+        return $this->hasMany(Pemakaian::class, "id_pelanggan")->whereMonth("created_at", now()->month)->orWhere("status", "Hutang")->whereYear("created_at", now()->year);
     }
 
-    public function whereTransaksi($data)
+    public function wherePemakaian($data)
     {
-        return $this->hasMany(Transaksi::class, "id_pelanggan")->whereMonth("created_at", $data->month)->whereYear("created_at", $data->year);
+        return $this->hasMany(Pemakaian::class, "id_pelanggan")->whereMonth("created_at", $data->month)->whereYear("created_at", $data->year);
     }
 }

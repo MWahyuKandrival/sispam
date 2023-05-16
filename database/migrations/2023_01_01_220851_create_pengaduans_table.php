@@ -14,7 +14,7 @@ class CreatePengaduansTable extends Migration
     public function up()
     {
         Schema::create('pengaduans', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->timestamps();
         });
     }

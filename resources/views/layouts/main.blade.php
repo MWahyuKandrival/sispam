@@ -129,17 +129,24 @@
             dataType: 'json',
             success: function(response) {
                 if (response['pemakaian'] != null) {
-                    console.log(response['pemakaian']);
-                    $("#pemakaian_sebelum").val(response['pemakaian']);
+                    console.log(response['pemakaian'].tanggal);
+                    $("#pemakaian_sebelum").val(response['pemakaian'].pemakaian);
                     $("#pemakaian_sekarang").attr({
-                        min: response['pemakaian'],
+                        min: response['pemakaian'].pemakaian,
                     });
+                    $("#total_hutang_readonly").val(formatRupiah("" + response['hutang'].hutang,
+                        'Rp. '));
+                    $("#total_hutang").val(response['hutang'].hutang);
+                    $("#addon-tanggal-sebelum").text(response['pemakaian'].tanggal);
                 } else {
                     console.log('not found');
                     $("#pemakaian_sebelum").val(0);
                     $("#pemakaian_sekarang").attr({
                         min: 0,
                     });
+                    $("#total_hutang_readonly").val("Rp. 0");
+                    $("#total_hutang").val("0");
+                    $("#addon-tanggal-sebelum").text("Tanggal");
                 }
                 $("#pemakaian_sekarang").attr("readonly", false);
             },
@@ -152,6 +159,9 @@
                 $("#pemakaian_sebelum").val("Pilih Pelanggan Terlebih Dahulu");
                 $("#pemakaian_sekarang").val(0);
                 $("#pemakaian_sekarang").attr("readonly", true);
+                $("#total_hutang_readonly").val("");
+                $("#total_hutang").val("");
+                $("#addon-tanggal-sebelum").text("Tanggal");
             },
         });
     });
@@ -163,7 +173,6 @@
     // });
 </script>
 <script type="text/javascript">
-    
     var pakai = document.getElementById('pemakaian_sekarang');
     pakai.addEventListener('keyup', function(e) {
         if (parseInt($(this).val()) >= parseInt($(this).attr("min"))) {

@@ -3,14 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-// use Illuminate\Notifications\Notifiable;
-// use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
-    // use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,23 +20,19 @@ class User extends Authenticatable
     // if your key name is not 'id'
     // you can also set this to null if you don't have a primary key
     // protected $primaryKey = 'id';
-
+    
     public $incrementing = false;
 
     // In Laravel 6.0+ make sure to also set $keyType
     protected $keyType = 'string';
 
-    public function getRouteKeyName()
-    {
-        return 'id';
-    }
-
+    
     // protected $guarded = ['id'];
 
     protected $fillable = [
         'id',
         'name',
-        'email',
+        'username',
         'password',
         'status',
         'role',
@@ -70,21 +65,21 @@ class User extends Authenticatable
 
     public function pelanggan()
     {
-        return $this->hasMany(Pelanggan::class, "id_user")->where("status", "Active");
+        return $this->hasMany(Pelanggan::class, "id_user");
     }
 
-    public function transaksi()
+    public function pemakaian()
     {
-        return $this->hasMany(Transaksi::class, "id_user");
+        return $this->hasMany(Pemakaian::class, "id_user");
     }
 
-    public function currentTransaksi()
+    public function currentPemakaian()
     {
-        return $this->hasMany(Transaksi::class, "id_user")->whereMonth("created_at", now()->month)->whereYear("created_at", now()->year);
+        return $this->hasMany(Pemakaian::class, "id_user")->whereMonth("created_at", now()->month)->whereYear("created_at", now()->year);
     }
 
-    public function whereTransaksi($data)
+    public function wherePemakaian($data)
     {
-        return $this->hasMany(Transaksi::class, "id_user")->whereMonth("created_at", $data->month)->whereYear("created_at", $data->year);
+        return $this->hasMany(Pemakaian::class, "id_user")->whereMonth("created_at", $data->month)->whereYear("created_at", $data->year);
     }
 }

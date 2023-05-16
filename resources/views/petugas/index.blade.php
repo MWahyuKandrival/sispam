@@ -46,7 +46,7 @@
                                                 No
                                             </th>
                                             <th>Nama</th>
-                                            <th>Jumlah <br/>Pelanggan</th>
+                                            <th>Jumlah <br />Pelanggan</th>
                                             <th>Tagihan</th>
                                             <th>Total Tagihan</th>
                                             <th>Total Pembayaran</th>
@@ -60,11 +60,11 @@
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td>{{ $ptg->name }}</td>
                                                 <td>{{ $ptg->pelanggan->count() }}</td>
-                                                <td>{{ $ptg->currentTransaksi->count() }} / {{ $ptg->pelanggan->count() }}
+                                                <td>{{ $ptg->currentPemakaian->count() }} / {{ $ptg->pelanggan->count() }}
                                                 </td>
-                                                <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_tagihan')) }}
+                                                <td>Rp. {{ number_format($ptg->currentPemakaian->sum('total_tagihan')) }}
                                                 </td>
-                                                <td>Rp. {{ number_format($ptg->currentTransaksi->sum('total_pembayaran')) }}
+                                                <td>Rp. {{ number_format($ptg->currentPemakaian->sum('total_pembayaran')) }}
                                                 </td>
                                                 <td>{{ $ptg->status }}</td>
                                                 <td>
@@ -72,15 +72,18 @@
                                                             class="btn btn-primary" style="width: 6em">Detail</button></a>
                                                     <a href="/admin/petugas/{{ $ptg->id }}/edit"><button
                                                             class="btn btn-warning" style="width: 6em">Edit</button></a>
-                                                    <form action="/admin/petugas/{{ $ptg->id }}" method="POST"
-                                                        id="deleteForm_{{ $loop->iteration }}" style="display: inline;">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-danger btn-delete"
-                                                            data-loop="{{ $loop->iteration }}"
-                                                            data-name="{{ $ptg->name }}"
-                                                            style="width: 6em; display: inline-block;">Delete</button>
-                                                    </form>
+                                                    @if ($ptg->role != 'Admin')
+                                                        <form action="/admin/petugas/{{ $ptg->id }}" method="POST"
+                                                            id="deleteForm_{{ $loop->iteration }}"
+                                                            style="display: inline;">
+                                                            @method('DELETE')
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger btn-delete"
+                                                                data-loop="{{ $loop->iteration }}"
+                                                                data-name="{{ $ptg->name }}"
+                                                                style="width: 6em; display: inline-block;">Delete</button>
+                                                        </form>
+                                                    @endif
                                                     {{-- <a href="/admin/petugas/atur-pelanggan/{{ $ptg->id }}"><button
                                                         class=" btn btn-success" style="width: 10em">Atur Pelanggan</button></a> --}}
                                                 </td>
